@@ -57,7 +57,7 @@ const Dashboard = () => {
                                     <td className="py-3 px-4 border-b">
                                         <div className="flex justify-center">
                                             <img
-                                                src={`http://localhost:5000${product.image}`}
+                                                src={`https://nextbuy-xpvm.onrender.com${product.image}`}
                                                 className="w-16 h-16 object-cover rounded-md"
                                             />
                                         </div>
