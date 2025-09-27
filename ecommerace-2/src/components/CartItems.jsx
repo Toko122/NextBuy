@@ -65,7 +65,7 @@ const CartItems = () => {
                                 <div className="cursor-pointer w-24 h-24 flex items-center justify-center border border-gray-300 rounded overflow-hidden">
                                     <img
                                         className="w-full h-full object-cover"
-                                        src={`https://nextbuy-xpvm.onrender.com${product.image}`}
+                                        src={`https://nextbuy-xpvm.onrender.com${product.productId?.image}`}
                                         alt={product.productId?.title}
                                     />
                                 </div>
