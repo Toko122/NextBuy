@@ -7,7 +7,7 @@ const path = require('path')
 dotenv.config()
 
 app.use(cors(
-    {origin: 'https://next-nad6u0xaz-toko122s-projects.vercel.app'}
+    {origin: 'https://next-liw1tep8z-toko122s-projects.vercel.app'}
 ))
 app.use(express.json())
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
