@@ -1,0 +1,17 @@
+[
+    {
+      "title": "iPhone 15 Pro",
+      "description": "Latest Apple flagship phone",
+      "price": 1199,
+      "image": "https://example.com/iphone15pro.jpg",
+      "category": "phone"
+    },
+    {
+      "title": "Samsung Galaxy Tab S9",
+      "description": "High-end Android tablet",
+      "price": 999,
+      "image": "https://example.com/galaxy-tab-s9.jpg",
+      "category": "tablet"
+    }
+  ]
+  
