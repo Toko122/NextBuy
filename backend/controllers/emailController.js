@@ -17,7 +17,7 @@ exports.sendEmail = async (req, res) => {
         user.resetTokenExpire = Date.now() + 1000 * 60 * 15
         await user.save()
 
-        const resetLink = `https://next-buy-eight.vercel.app/reset-password/${resetToken}`
+        const resetLink = `https://next-nad6u0xaz-toko122s-projects.vercel.app/reset-password/${resetToken}`
 
         const transporter = await nodeMailer.createTransport({
             service: 'gmail',
