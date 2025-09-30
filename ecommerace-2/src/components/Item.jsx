@@ -47,7 +47,7 @@ const Item = () => {
                <p className="mt-4 text-gray-500 font-medium">Loading products...</p>
             </div>
          ) : (
-            products ? (
+            products.length > 0 ? (
                products.map(item => (
                   <div key={item._id} className="flex flex-col bg-white shadow-md w-72 max-h-[500px]">
                      <div onClick={() => { navigate(`/product/${item._id}`); window.scrollTo(0, 0) }}>
