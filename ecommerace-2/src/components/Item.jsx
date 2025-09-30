@@ -47,32 +47,36 @@ const Item = () => {
                <p className="mt-4 text-gray-500 font-medium">Loading products...</p>
             </div>
          ) : (
-            products.map(item => (
-               <div key={item._id} className="flex flex-col bg-white shadow-md w-72 max-h-[500px]">
-                  <div onClick={() => { navigate(`/product/${item._id}`); window.scrollTo(0, 0) }}>
-                     <img className='w-72 h-48 object-cover' src={`https://nextbuy-xpvm.onrender.com${item.image}`} alt="image" />
-
-                     <div className="p-4 text-sm">
-                        <p className="text-slate-600">${(item.price).toFixed(2)}</p>
-                        <p className="text-slate-800 text-base font-medium my-1.5">{item.title}</p>
-                        <p className="text-slate-500 overflow-hidden text-ellipsis select-none">
-                           {item.description}
-                        </p>
-
-                        <button
-                           onClick={(e) => {
-                              e.stopPropagation()
-                              localStorage.getItem('token') ? handleAddCart(item._id)
-                                 : navigate('/login')
-                           }}
-                           className="bg-slate-100 text-slate-600 py-2 w-full mt-5 cursor-pointer hover:bg-slate-200 transition duration-300"
-                        >
-                           Add to cart
-                        </button>
+            products ? (
+               products.map(item => (
+                  <div key={item._id} className="flex flex-col bg-white shadow-md w-72 max-h-[500px]">
+                     <div onClick={() => { navigate(`/product/${item._id}`); window.scrollTo(0, 0) }}>
+                        <img className='w-72 h-48 object-cover' src={`https://nextbuy-xpvm.onrender.com${item.image}`} alt="image" />
+   
+                        <div className="p-4 text-sm">
+                           <p className="text-slate-600">${(item.price).toFixed(2)}</p>
+                           <p className="text-slate-800 text-base font-medium my-1.5">{item.title}</p>
+                           <p className="text-slate-500 overflow-hidden text-ellipsis select-none">
+                              {item.description}
+                           </p>
+   
+                           <button
+                              onClick={(e) => {
+                                 e.stopPropagation()
+                                 localStorage.getItem('token') ? handleAddCart(item._id)
+                                    : navigate('/login')
+                              }}
+                              className="bg-slate-100 text-slate-600 py-2 w-full mt-5 cursor-pointer hover:bg-slate-200 transition duration-300"
+                           >
+                              Add to cart
+                           </button>
+                        </div>
                      </div>
                   </div>
-               </div>
-            ))
+               ))
+            ) : (
+               <h1 className='font-semibold text-gray-400'>Not Products Yet</h1>
+            )
          )}
       </div>
    )

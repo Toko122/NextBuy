@@ -9,15 +9,20 @@ const CartItems = () => {
     const [selectedItems, setSelectedItems] = useState([])
     const { id } = useParams()
 
+    const [loading, setLoading] = useState(false)
+
     const navigate = useNavigate()
 
     useEffect(() => {
         const getSelectedItems = async () => {
+            setLoading(true)
             try {
                 const res = await axios.get('/cart/getCart')
                 setSelectedItems(res.data.cart)
             } catch (err) {
                 console.log(err);
+            }finally{
+                setLoading(false)
             }
         }
         getSelectedItems()
@@ -59,31 +64,42 @@ const CartItems = () => {
                 </div>
 
                 {
-                    selectedItems.map((product, index) => (
-                        <div key={index} className="grid grid-cols-[2fr_1fr_1fr] text-gray-500 items-center text-sm md:text-base font-medium pt-3">
-                            <div className="flex items-center md:gap-6 gap-3">
-                                <div className="cursor-pointer w-24 h-24 flex items-center justify-center border border-gray-300 rounded overflow-hidden">
-                                    <img
-                                        className="w-full h-full object-cover"
-                                        src={`https://nextbuy-xpvm.onrender.com${product.productId?.image}`}
-                                        alt={product.productId?.title}
-                                    />
-                                </div>
-                                <div>
-                                    <p className="hidden md:block font-semibold">{product.productId?.title}</p>
-                                    <div className="font-normal text-gray-500/70">
-                                        <div className='flex items-center'>
-                                            <p>Qty: {product.quantity}</p>
+                    loading ? (
+                     <div className="flex flex-col items-center justify-center mt-20">
+                         <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                         <p className="mt-4 text-gray-500 font-medium">Loading products...</p>
+                     </div>
+                    ) : (
+                        selectedItems ? (
+                            selectedItems.map((product, index) => (
+                                <div key={index} className="grid grid-cols-[2fr_1fr_1fr] text-gray-500 items-center text-sm md:text-base font-medium pt-3">
+                                    <div className="flex items-center md:gap-6 gap-3">
+                                        <div className="cursor-pointer w-24 h-24 flex items-center justify-center border border-gray-300 rounded overflow-hidden">
+                                            <img
+                                                className="w-full h-full object-cover"
+                                                src={`https://nextbuy-xpvm.onrender.com${product.productId?.image}`}
+                                                alt={product.productId?.title}
+                                            />
+                                        </div>
+                                        <div>
+                                            <p className="hidden md:block font-semibold">{product.productId?.title}</p>
+                                            <div className="font-normal text-gray-500/70">
+                                                <div className='flex items-center'>
+                                                    <p>Qty: {product.quantity}</p>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
+                                    <p className="text-center">${(product.productId?.price * product.quantity).toFixed(2)}</p>
+                                    <button onClick={() => handleDelete(product.productId?._id)} className="cursor-pointer mx-auto">
+                                        <IoMdCloseCircle className='text-red-500 text-[20px]' />
+                                    </button>
                                 </div>
-                            </div>
-                            <p className="text-center">${(product.productId?.price * product.quantity).toFixed(2)}</p>
-                            <button onClick={() => handleDelete(product.productId?._id)} className="cursor-pointer mx-auto">
-                                <IoMdCloseCircle className='text-red-500 text-[20px]' />
-                            </button>
-                        </div>
-                    ))
+                            ))
+                        ) : (
+                            <h1 className='font-semibold text-gray-400'>Please Select Your Item</h1>
+                        )
+                    )
                 }
 
                 <button onClick={() => navigate('/')} className="group cursor-pointer flex items-center mt-8 gap-2 text-indigo-500 font-medium">
