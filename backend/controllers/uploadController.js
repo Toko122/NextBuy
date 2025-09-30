@@ -26,7 +26,13 @@ exports.uploadImage = async (req, res) => {
 exports.getImages = async (req, res) => {
     try {
       const images = await Image.find().sort({ createdAt: -1 });
-      res.status(200).json(images);
+         
+       const fullImages = images.map(img => ({
+            ...img._doc,
+            imageUrl: `${req.protocol}://${req.get('host')}${img.imageUrl}`
+        }));
+        res.status(200).json(fullImages);
+         
     } catch (err) {
       res.status(500).json({ message: "Server Error", error: err.message });
     }
