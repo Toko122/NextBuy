@@ -8,8 +8,9 @@ exports.postProduct = async(req, res) => {
        }
 
      try{
+       const fullUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
        const product = await Products.create({
-         title, description, price, image: `/uploads/${req.file.filename}`
+         title, description, price, image: fullUrl
        })
 
        res.status(200).json(product)
