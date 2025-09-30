@@ -21,7 +21,7 @@ const Dashboard = () => {
     const handleDelete = async (productId) => {
         try {
             await axios.delete('/products/deleteProduct', { data: { productId } })
-            setProducts((prev) => prev.filter((item) => item._id !== productId))
+            setProducts((prev) => prev.filter((item) => item.productId?._id !== productId))
         } catch (err) {
             console.log(err);
         }
@@ -38,7 +38,7 @@ const Dashboard = () => {
                     Create New
                 </button>
 
-                {/* Desktop Table */}
+                
                 <div className="overflow-x-auto shadow-md rounded-lg hidden md:block">
                     <table className="min-w-full border-collapse">
                         <thead className="bg-gray-100 text-gray-700 text-left">
@@ -81,7 +81,7 @@ const Dashboard = () => {
                     </table>
                 </div>
 
-                {/* Mobile Cards */}
+                
                 <div className="grid gap-4 md:hidden">
                     {products.map((product, index) => (
                         <div
