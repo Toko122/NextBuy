@@ -93,7 +93,7 @@ const Dashboard = () => {
                                 <th className="py-3 px-4 border-b text-center">Action</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody className='w-full'>
                             {products.map((product, index) => (
                                 <tr key={product._id} className="hover:bg-gray-50 transition duration-150 flex flex-col w-full">
                                     <td className="py-3 px-4 border-b text-center">{index + 1}</td>
