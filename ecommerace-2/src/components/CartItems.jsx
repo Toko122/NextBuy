@@ -31,7 +31,7 @@ const CartItems = () => {
     const handleDelete = async (productId) => {
         try {
             const res = await axios.delete(`/cart/deleteCart`, { data: { productId } })
-            setSelectedItems((prev) => prev.filter(item => item._id !== productId))
+            setSelectedItems((prev) => prev.filter(item => item.productId?._id !== productId))
             window.dispatchEvent(new Event('cartUpdated'))
         } catch (err) {
             console.log(err);
@@ -91,7 +91,7 @@ const CartItems = () => {
                                         </div>
                                     </div>
                                     <p className="text-center">${(product.productId?.price * product.quantity).toFixed(2)}</p>
-                                    <button onClick={() => handleDelete(product._id)} className="cursor-pointer mx-auto">
+                                    <button onClick={() => handleDelete(product.productId?._id)} className="cursor-pointer mx-auto">
                                         <IoMdCloseCircle className='text-red-500 text-[20px]' />
                                     </button>
                                 </div>
