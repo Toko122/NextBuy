@@ -21,7 +21,7 @@ const Dashboard = () => {
     const handleDelete = async (productId) => {
         try {
             await axios.delete('/products/deleteProduct', { data: { productId } })
-            setProducts((prev) => prev.filter((item) => item.productId?._id !== productId))
+            setProducts((prev) => prev.filter((item) => item._id !== productId))
         } catch (err) {
             console.log(err);
         }
@@ -69,7 +69,7 @@ const Dashboard = () => {
                                             Edit
                                         </button>
                                         <button
-                                            onClick={() => handleDelete(product.productId?._id)}
+                                            onClick={() => handleDelete(product._id)}
                                             className="bg-red-600 cursor-pointer text-white px-3 py-1 rounded-md ml-2 hover:bg-red-700 transition"
                                         >
                                             Delete
