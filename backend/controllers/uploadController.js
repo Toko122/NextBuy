@@ -5,9 +5,10 @@ exports.uploadImage = async (req, res) => {
         return res.status(400).json({ message: "image file is required" });
      }
      try{
+      const fullUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
       const newImage = new Image({
         title: req.body.title,
-        imageUrl: `/uploads/${req.file.filename}`
+        imageUrl: fullUrl
     })
     const savedImage = await newImage.save();
         res.status(201).json(savedImage);
