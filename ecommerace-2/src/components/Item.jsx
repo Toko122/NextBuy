@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import axios from '../axios'
-import { FaShoppingCart } from 'react-icons/fa'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const Item = () => {
    const [products, setProducts] = useState([])
-
-   const [error, setError] = useState('')
-
+   const [loading, setLoading] = useState(true)
    const navigate = useNavigate()
 
    useEffect(() => {
@@ -17,6 +14,8 @@ const Item = () => {
             setProducts(res.data || [])
          } catch (err) {
             console.log(err)
+         } finally {
+            setLoading(false)
          }
       }
       getProducts()
@@ -37,53 +36,44 @@ const Item = () => {
    return (
       <div className='w-full flex gap-6 flex-wrap justify-center pt-30'>
          <style>{`
-                @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-            
-                * {
-                    font-family: 'Poppins', sans-serif;
-                }
+                @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+                * { font-family: 'Poppins', sans-serif; }
             `}</style>
 
-            {
-               products ? (
-                  products.map(item => (
-                     <div key={item._id} className="flex flex-col bg-white shadow-md w-72 max-h-[500px]">
-                        <div onClick={() => { navigate(`/product/${item._id}`); window.scrollTo(0, 0) }}>
-                           <img className='w-72 h-48 object-cover' src={`https://nextbuy-xpvm.onrender.com${item.image}`} alt="image" />
          
-                           <div className="p-4 text-sm">
-                              <p className="text-slate-600">${(item.price).toFixed(2)}</p>
-                              <p className="text-slate-800 text-base font-medium my-1.5">{item.title}</p>
-                              <p className="text-slate-500 overflow-hidden text-ellipsis select-none">
-                                 {item.description}
-                              </p>
-         
-                              <button
-         
-                                 onClick={(e) => {
-                                    e.stopPropagation()
-                                    localStorage.getItem('token') ? handleAddCart(item._id)
-                                       :
-                                       navigate('/login')
-                                 }}
-                                 className="bg-slate-100 text-slate-600 py-2 w-full mt-5 cursor-pointer hover:bg-slate-200 transition duration-300"
-                              >
-                                 Add to cart
-                              </button>
-                           </div>
-                        </div>
+         {loading ? (
+            <div className="flex flex-col items-center justify-center mt-20">
+               <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+               <p className="mt-4 text-gray-500 font-medium">Loading products...</p>
+            </div>
+         ) : (
+            products.map(item => (
+               <div key={item._id} className="flex flex-col bg-white shadow-md w-72 max-h-[500px]">
+                  <div onClick={() => { navigate(`/product/${item._id}`); window.scrollTo(0, 0) }}>
+                     <img className='w-72 h-48 object-cover' src={`https://nextbuy-xpvm.onrender.com${item.image}`} alt="image" />
+
+                     <div className="p-4 text-sm">
+                        <p className="text-slate-600">${(item.price).toFixed(2)}</p>
+                        <p className="text-slate-800 text-base font-medium my-1.5">{item.title}</p>
+                        <p className="text-slate-500 overflow-hidden text-ellipsis select-none">
+                           {item.description}
+                        </p>
+
+                        <button
+                           onClick={(e) => {
+                              e.stopPropagation()
+                              localStorage.getItem('token') ? handleAddCart(item._id)
+                                 : navigate('/login')
+                           }}
+                           className="bg-slate-100 text-slate-600 py-2 w-full mt-5 cursor-pointer hover:bg-slate-200 transition duration-300"
+                        >
+                           Add to cart
+                        </button>
                      </div>
-                  ))
-               ) : (
-                  <div className='flex gap-4 items-center'>
-                     <span className='rounded-full w-[2px] h-[4px] animate-spin bg-gray-400'></span>
-                     <span className='text-gray-400 font-semibold'>Please Wait</span>
                   </div>
-               )
-            }
-
-
-
+               </div>
+            ))
+         )}
       </div>
    )
 }
