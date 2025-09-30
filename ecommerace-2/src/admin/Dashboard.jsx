@@ -82,7 +82,6 @@ const Dashboard = () => {
                 </div>
 
                 
-                <div className="grid gap-4 md:hidden">
                 <div className="overflow-x-auto shadow-md rounded-lg hidden md:block">
                     <table className="min-w-full border-collapse">
                         <thead className="bg-gray-100 text-gray-700 text-left flex flex-col">
@@ -124,8 +123,9 @@ const Dashboard = () => {
                         </tbody>
                     </table>
                 </div>
-                </div>
+               
             </div>
+
         </div>
     )
 }
