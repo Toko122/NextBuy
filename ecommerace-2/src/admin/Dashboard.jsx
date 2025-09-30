@@ -69,7 +69,7 @@ const Dashboard = () => {
                                             Edit
                                         </button>
                                         <button
-                                            onClick={() => handleDelete(product._id)}
+                                            onClick={() => handleDelete(product.productId?._id)}
                                             className="bg-red-600 cursor-pointer text-white px-3 py-1 rounded-md ml-2 hover:bg-red-700 transition"
                                         >
                                             Delete
