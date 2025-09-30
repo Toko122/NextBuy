@@ -29,7 +29,7 @@ const Dashboard = () => {
     }
 
     return (
-        <div className="w-full px-6 md:px-12 lg:px-[450px] py-10">
+        <div className="w-full px-6 md:px-12 xl:px-[450px] lg:px-18 py-10">
             <div className="flex flex-col gap-6">
                 <h1 className="text-3xl font-semibold">Products</h1>
                 <button onClick={() => navigate('/create')} className="bg-green-800 rounded-md py-1.5 px-4 text-center text-white font-semibold w-fit cursor-pointer hover:bg-green-900 transition duration-200">
