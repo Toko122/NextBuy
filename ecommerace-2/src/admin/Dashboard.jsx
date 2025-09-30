@@ -84,32 +84,30 @@ const Dashboard = () => {
                 
                 <div className="grid gap-4 md:hidden">
                     {products.map((product, index) => (
-                        <div 
-                            key={product._id} 
-                            className="bg-white shadow-md rounded-lg p-4 flex flex-col gap-3"
-                        >
-                            <div className="flex items-center gap-4">
-                                <img 
-                                    src={`https://nextbuy-xpvm.onrender.com${product.image}`} 
-                                    className="w-20 h-20 object-cover rounded-md"
+                        <tr key={product._id} className="hover:bg-gray-50 transition duration-150 flex flex-col">
+                        <td className="py-3 px-4 border-b text-center">{index + 1}</td>
+                        <td className="py-3 px-4 border-b">
+                            <div className="flex justify-center">
+                                <img
+                                    src={`https://nextbuy-xpvm.onrender.com${product.image}`}
+                                    className="w-16 h-16 object-cover rounded-md"
                                 />
-                                <div>
-                                    <h2 className="font-semibold text-gray-800">{product.title}</h2>
-                                    <p className="text-gray-600">${product.price.toFixed(2)}</p>
-                                </div>
                             </div>
-                            <div className="flex justify-between mt-2">
-                                <button className="bg-blue-600 text-white cursor-pointer px-3 py-1 rounded-md hover:bg-blue-700 transition">
-                                    Edit
-                                </button>
-                                <button 
-                                    onClick={() => handleDelete(product._id)} 
-                                    className="bg-red-600 cursor-pointer text-white px-3 py-1 rounded-md hover:bg-red-700 transition"
-                                >
-                                    Delete
-                                </button>
-                            </div>
-                        </div>
+                        </td>
+                        <td className="py-3 px-4 text-center border-b max-w-[200px] truncate">{product.title}</td>
+                        <td className="py-3 px-4 border-b text-center font-semibold">${product.price.toFixed(2)}</td>
+                        <td className="py-3 px-4 border-b text-center">
+                            <button className="bg-blue-600 text-white cursor-pointer px-3 py-1 rounded-md hover:bg-blue-700 transition">
+                                Edit
+                            </button>
+                            <button 
+                                onClick={() => handleDelete(product._id)} 
+                                className="bg-red-600 cursor-pointer text-white px-3 py-1 rounded-md ml-2 hover:bg-red-700 transition"
+                            >
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
                     ))}
                 </div>
             </div>
