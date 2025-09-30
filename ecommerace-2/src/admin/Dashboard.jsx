@@ -95,7 +95,7 @@ const Dashboard = () => {
                         </thead>
                         <tbody>
                             {products.map((product, index) => (
-                                <tr key={product._id} className="hover:bg-gray-50 transition duration-150 flex flex-col">
+                                <tr key={product._id} className="hover:bg-gray-50 transition duration-150 flex flex-col w-full">
                                     <td className="py-3 px-4 border-b text-center">{index + 1}</td>
                                     <td className="py-3 px-4 border-b">
                                         <div className="flex justify-center">
