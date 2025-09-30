@@ -84,8 +84,8 @@ const Dashboard = () => {
                 
                 <div className="overflow-x-auto shadow-md rounded-lg sm:hidden flex">
                     <table className="min-w-full border-collapse">
-                        <thead className="bg-gray-100 text-gray-700 text-left flex flex-col">
-                            <tr>
+                        <thead className="bg-gray-100 text-gray-700 text-left">
+                            <tr className='flex flex-col'>
                                 <th className="py-3 px-4 border-b text-center">#</th>
                                 <th className="py-3 px-4 border-b text-center">Image</th>
                                 <th className="py-3 px-4 border-b text-center">Title</th>
@@ -95,7 +95,7 @@ const Dashboard = () => {
                         </thead>
                         <tbody>
                             {products.map((product, index) => (
-                                <tr key={product._id} className="hover:bg-gray-50 transition duration-150 flex flex-col">
+                                <tr key={product._id} className="hover:bg-gray-50 transition duration-150 flex flex-col items-start">
                                     <td className="py-3 px-4 border-b text-center">{index + 1}</td>
                                     <td className="py-3 px-4 border-b">
                                         <div className="flex justify-center">
