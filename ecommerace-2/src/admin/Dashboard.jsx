@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 
 const Dashboard = () => {
     const [products, setProducts] = useState([])
-
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -21,7 +20,7 @@ const Dashboard = () => {
 
     const handleDelete = async (productId) => {
         try {
-            const res = await axios.delete('/products/deleteProduct', { data: { productId } })
+            await axios.delete('/products/deleteProduct', { data: { productId } })
             setProducts((prev) => prev.filter((item) => item._id !== productId))
         } catch (err) {
             console.log(err);
@@ -32,11 +31,15 @@ const Dashboard = () => {
         <div className="w-full px-6 md:px-12 xl:px-[450px] lg:px-18 py-10">
             <div className="flex flex-col gap-6">
                 <h1 className="text-3xl font-semibold">Products</h1>
-                <button onClick={() => navigate('/create')} className="bg-green-800 rounded-md py-1.5 px-4 text-center text-white font-semibold w-fit cursor-pointer hover:bg-green-900 transition duration-200">
+                <button 
+                    onClick={() => navigate('/create')} 
+                    className="bg-green-800 rounded-md py-1.5 px-4 text-center text-white font-semibold w-fit cursor-pointer hover:bg-green-900 transition duration-200"
+                >
                     Create New
                 </button>
 
-                <div className="overflow-x-auto shadow-md rounded-lg">
+                
+                <div className="overflow-x-auto shadow-md rounded-lg hidden md:block">
                     <table className="min-w-full border-collapse">
                         <thead className="bg-gray-100 text-gray-700 text-left">
                             <tr>
@@ -49,10 +52,7 @@ const Dashboard = () => {
                         </thead>
                         <tbody>
                             {products.map((product, index) => (
-                                <tr
-                                    key={index}
-                                    className="hover:bg-gray-50 transition duration-150"
-                                >
+                                <tr key={product._id} className="hover:bg-gray-50 transition duration-150">
                                     <td className="py-3 px-4 border-b text-center">{index + 1}</td>
                                     <td className="py-3 px-4 border-b">
                                         <div className="flex justify-center">
@@ -62,16 +62,16 @@ const Dashboard = () => {
                                             />
                                         </div>
                                     </td>
-
-                                    <td className="py-3 px-4 text-center border-b max-w-[200px] truncate">
-                                        {product.title}
-                                    </td>
-                                    <td className="py-3 px-4 border-b text-center font-semibold">${(product.price).toFixed(2)}</td>
+                                    <td className="py-3 px-4 text-center border-b max-w-[200px] truncate">{product.title}</td>
+                                    <td className="py-3 px-4 border-b text-center font-semibold">${product.price.toFixed(2)}</td>
                                     <td className="py-3 px-4 border-b text-center">
                                         <button className="bg-blue-600 text-white cursor-pointer px-3 py-1 rounded-md hover:bg-blue-700 transition">
                                             Edit
                                         </button>
-                                        <button onClick={() => handleDelete(product._id)} className="bg-red-600 cursor-pointer text-white px-3 py-1 rounded-md ml-2 hover:bg-red-700 transition">
+                                        <button 
+                                            onClick={() => handleDelete(product._id)} 
+                                            className="bg-red-600 cursor-pointer text-white px-3 py-1 rounded-md ml-2 hover:bg-red-700 transition"
+                                        >
                                             Delete
                                         </button>
                                     </td>
@@ -79,6 +79,38 @@ const Dashboard = () => {
                             ))}
                         </tbody>
                     </table>
+                </div>
+
+                
+                <div className="grid gap-4 md:hidden">
+                    {products.map((product, index) => (
+                        <div 
+                            key={product._id} 
+                            className="bg-white shadow-md rounded-lg p-4 flex flex-col gap-3"
+                        >
+                            <div className="flex items-center gap-4">
+                                <img 
+                                    src={`https://nextbuy-xpvm.onrender.com${product.image}`} 
+                                    className="w-20 h-20 object-cover rounded-md"
+                                />
+                                <div>
+                                    <h2 className="font-semibold text-gray-800">{product.title}</h2>
+                                    <p className="text-gray-600">${product.price.toFixed(2)}</p>
+                                </div>
+                            </div>
+                            <div className="flex justify-between mt-2">
+                                <button className="bg-blue-600 text-white cursor-pointer px-3 py-1 rounded-md hover:bg-blue-700 transition">
+                                    Edit
+                                </button>
+                                <button 
+                                    onClick={() => handleDelete(product._id)} 
+                                    className="bg-red-600 cursor-pointer text-white px-3 py-1 rounded-md hover:bg-red-700 transition"
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>
