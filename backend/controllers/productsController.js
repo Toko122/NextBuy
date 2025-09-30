@@ -32,7 +32,7 @@ exports.getProducts = async(req, res) => {
 exports.deleteProduct = async (req, res) => {
      const {productId} = req.body
       try{
-          const deletedItem = await Products.findOneAndDelete(productId)
+          const deletedItem = await Products.findByIdAndDelete(productId)
           if (!deletedItem) {
             return res.status(404).json({ message: "Item not found in cart" })
           }
