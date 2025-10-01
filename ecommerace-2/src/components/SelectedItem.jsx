@@ -56,7 +56,7 @@ const SelectedItem = () => {
         <div className="flex flex-col md:flex-row gap-16 mt-4">
           <div className="flex gap-3">
             <div className="border border-gray-500/30 max-w-100 rounded overflow-hidden">
-              <img src={`https://nextbuy-xpvm.onrender.com${product.image}`} alt="Selected product" className="w-full h-full object-cover" />
+              <img src={product.image} alt="Selected product" className="w-full h-full object-cover" />
             </div>
           </div>
 

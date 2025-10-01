@@ -6,6 +6,8 @@ const Dashboard = () => {
     const [products, setProducts] = useState([])
     const navigate = useNavigate()
 
+    const token = localStorage.getItem('token')
+
     useEffect(() => {
         const getProducts = async () => {
             try {
@@ -32,7 +34,7 @@ const Dashboard = () => {
             <div className="flex flex-col gap-6">
                 <h1 className="text-3xl font-semibold">Products</h1>
                 <button
-                    onClick={() => navigate('/create')}
+                    onClick={() => token ? navigate('/create') : navigate('/login')}
                     className="bg-green-800 rounded-md py-1.5 px-4 text-center text-white font-semibold w-fit cursor-pointer hover:bg-green-900 transition duration-200"
                 >
                     Create New
@@ -57,7 +59,7 @@ const Dashboard = () => {
                                     <td className="py-3 px-4 border-b">
                                         <div className="flex justify-center">
                                             <img
-                                                src={`https://nextbuy-xpvm.onrender.com${product.image}`}
+                                                src={product.image}
                                                 className="w-16 h-16 object-cover rounded-md"
                                             />
                                         </div>
@@ -90,7 +92,7 @@ const Dashboard = () => {
                         >
                             <div className="flex items-center gap-4">
                                 <img
-                                    src={`https://nextbuy-xpvm.onrender.com${product.image}`}
+                                    src={product.image}
                                     className="w-20 h-20 object-cover rounded-md"
                                 />
                                 <div>

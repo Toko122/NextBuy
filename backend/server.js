@@ -10,8 +10,6 @@ app.use(cors(
     {origin: 'https://next-buy-eight.vercel.app'}
 ))
 app.use(express.json())
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
-
 
 const productsRouter = require('./router/productsRouter')
 const userRouter = require('./router/userRouter')
