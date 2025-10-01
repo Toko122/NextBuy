@@ -1,5 +1,6 @@
 const Image = require('../models/image')
 
+
 exports.uploadImage = async(req, res) => {
     if (!req.file) {
         return res.status(400).json({ message: "Image file is required" });
@@ -23,4 +24,5 @@ exports.getImages = async(req, res) => {
     } catch (err) {
         res.status(500).json({ message: "Server Error", error: err.message });
     }
+
 }
