@@ -131,7 +131,7 @@ const Navbar = () => {
                                 ))
                             ) : (
                                 <div className="px-6 py-4 text-gray-500 text-center">
-                                    No products found
+                                    No product found
                                 </div>
                             )}
                         </div>
