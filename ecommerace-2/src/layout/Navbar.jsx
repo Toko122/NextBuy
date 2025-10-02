@@ -111,18 +111,6 @@ const Navbar = () => {
                         <FaSearch />
                     </div>
 
-                    {
-                        dropDownOpen ? (
-                                products.map((p) => (
-                                   <div className='absolute bg-white w-full max-h-60 overflow-y-auto rounded-md shadow-lg mt-1 z-50 text-black'>
-                                      <SearchCard product={p} key={p._id} onClick={() => navigate(`/product/${p._id}`)}/>
-                                   </div>
-                                ))
-                        ) : (
-                            <div className="px-6 py-4 text-gray-500 text-center">Not found</div>
-                        )
-                    }
-
                     <div className="relative cursor-pointer" onClick={() => navigate(`/cart`)}>
                         <FaShoppingCart className='text-blue-400 text-[20px]' />
                         <button className="absolute -top-2 -right-3 flex items-center justify-center text-xs text-white bg-indigo-500 w-[18px] h-[18px] rounded-full cursor-pointer">{token ? cartCount : '0'}</button>
@@ -164,6 +152,18 @@ const Navbar = () => {
                         )
                     }
                 </div>
+
+                {
+                        dropDownOpen ? (
+                                products.map((p) => (
+                                   <div className='absolute bg-white w-[200px] max-h-60 overflow-y-auto rounded-md shadow-lg mt-1 z-50 text-black'>
+                                      <SearchCard product={p} key={p._id} onClick={() => navigate(`/product/${p._id}`)}/>
+                                   </div>
+                                ))
+                        ) : (
+                            <div className="px-6 py-4 text-gray-500 text-center">Not found</div>
+                        )
+                 }
 
             </nav>
         </div>
