@@ -67,15 +67,15 @@ const Navbar = () => {
     }, [])
 
     useEffect(() => {
-         if(searchTerm.trim() === ''){
+        if (searchTerm.trim() === '') {
             setDropDownOpen(false)
             return
-         }
+        }
 
-         const filteredProduct = products.filter((p) => p.title.toLowerCase().includes(searchTerm.toLowerCase()))
+        const filteredProduct = products.filter((p) => p.title.toLowerCase().includes(searchTerm.toLowerCase()))
 
-         setDropDownOpen(true)
-         setProducts(filteredProduct)
+        setDropDownOpen(true)
+        setProducts(filteredProduct)
     }, [searchTerm, products])
 
     return (
@@ -103,13 +103,25 @@ const Navbar = () => {
                 </div>
 
 
-                <div className="hidden lg:flex items-center gap-8 justify-center">
+                <div className="hidden lg:flex items-center gap-8 justify-center relative">
 
 
                     <div className="hidden lg:flex items-center text-sm gap-2 border border-gray-300 px-3 rounded-full">
                         <input value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="py-1.5 w-full bg-transparent outline-none placeholder-gray-500" type="text" placeholder="Search products" />
                         <FaSearch />
                     </div>
+
+                    {
+                        dropDownOpen ? (
+                            products.map((p) => (
+                                <div className='absolute left-2 bottom-4 bg-white w-[200px] max-h-60 overflow-y-auto rounded-md shadow-lg mt-1 z-50 text-black'>
+                                    <SearchCard product={p} key={p._id} onClick={() => navigate(`/product/${p._id}`)} />
+                                </div>
+                            ))
+                        ) : (
+                            <div className="px-6 py-4 text-gray-500 text-center">Not found</div>
+                        )
+                    }
 
                     <div className="relative cursor-pointer" onClick={() => navigate(`/cart`)}>
                         <FaShoppingCart className='text-blue-400 text-[20px]' />
@@ -152,18 +164,6 @@ const Navbar = () => {
                         )
                     }
                 </div>
-
-                {
-                        dropDownOpen ? (
-                                products.map((p) => (
-                                   <div className='absolute bg-white w-[200px] max-h-60 overflow-y-auto rounded-md shadow-lg mt-1 z-50 text-black'>
-                                      <SearchCard product={p} key={p._id} onClick={() => navigate(`/product/${p._id}`)}/>
-                                   </div>
-                                ))
-                        ) : (
-                            <div className="px-6 py-4 text-gray-500 text-center">Not found</div>
-                        )
-                 }
 
             </nav>
         </div>
