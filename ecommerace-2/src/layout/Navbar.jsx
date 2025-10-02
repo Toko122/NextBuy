@@ -114,8 +114,8 @@ const Navbar = () => {
 
                     {dropDownOpen && (
                             <div className="absolute top-12 left-0 w-full bg-white rounded-md shadow-lg max-h-60 overflow-y-auto z-50">
-                                {filteredProducts.length > 0 ? (
-                                    filteredProducts.map((p) => (
+                                {products.length > 0 ? (
+                                    products.map((p) => (
                                         <div
                                             key={p._id}
                                             onClick={() => {
