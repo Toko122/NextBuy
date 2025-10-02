@@ -99,8 +99,8 @@ const Navbar = () => {
                     <div className="hidden lg:flex items-center text-sm gap-2 border border-gray-300 px-3 rounded-full">
                         <input value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="py-1.5 w-full bg-transparent outline-none placeholder-gray-500" type="text" placeholder="Search products" />
                         <FaSearch />
+                    </div>
 
-                        
                     {
                         filteredProduct.map((p) => (
                            <div className='absolute bottom-0 w-full rounded bg-gray-400 py-2 px-4'>
@@ -108,10 +108,6 @@ const Navbar = () => {
                            </div>
                         ))
                     }
-                    
-                    </div>
-
-                    
 
                     <div className="relative cursor-pointer" onClick={() => navigate(`/cart`)}>
                         <FaShoppingCart className='text-blue-400 text-[20px]' />
