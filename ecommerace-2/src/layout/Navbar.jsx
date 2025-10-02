@@ -69,13 +69,14 @@ const Navbar = () => {
     useEffect(() => {
         if (searchTerm.trim() === '') {
             setDropDownOpen(false)
+            setProducts([])
             return
         }
-
-        const filteredProduct = products.filter((p) => p.title.toLowerCase().includes(searchTerm.toLowerCase()))
-
+        const filtered = products.filter((p) =>
+            p.title.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+        setProducts(filtered)
         setDropDownOpen(true)
-        setProducts(filteredProduct)
     }, [searchTerm, products])
 
     return (
@@ -111,17 +112,29 @@ const Navbar = () => {
                         <FaSearch />
                     </div>
 
-                    {
-                        dropDownOpen ? (
-                            products.map((p) => (
-                                <div className='absolute left-2 bottom-4 bg-white w-[200px] max-h-60 overflow-y-auto rounded-md shadow-lg mt-1 z-50 text-black'>
-                                    <SearchCard product={p} key={p._id} onClick={() => navigate(`/product/${p._id}`)} />
-                                </div>
-                            ))
-                        ) : (
-                            <div className="px-6 py-4 text-gray-500 text-center">Not found</div>
-                        )
-                    }
+                    {dropDownOpen && (
+                            <div className="absolute top-12 left-0 w-full bg-white rounded-md shadow-lg max-h-60 overflow-y-auto z-50">
+                                {filteredProducts.length > 0 ? (
+                                    filteredProducts.map((p) => (
+                                        <div
+                                            key={p._id}
+                                            onClick={() => {
+                                                navigate(`/product/${p._id}`)
+                                                setSearchTerm('')
+                                                setDropDownOpen(false)
+                                            }}
+                                            className="hover:bg-gray-100 transition px-3 py-2 cursor-pointer"
+                                        >
+                                            <SearchCard product={p} />
+                                        </div>
+                                    ))
+                                ) : (
+                                    <div className="px-6 py-4 text-gray-500 text-center">
+                                        No products found
+                                    </div>
+                                )}
+                            </div>
+                        )}
 
                     <div className="relative cursor-pointer" onClick={() => navigate(`/cart`)}>
                         <FaShoppingCart className='text-blue-400 text-[20px]' />
