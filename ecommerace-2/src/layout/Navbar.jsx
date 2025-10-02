@@ -14,7 +14,7 @@ const Navbar = () => {
     const [products, setProducts] = useState([])
 
     const [searchTerm, setSearchTerm] = useState('')
-
+    const [dropDownOpen, setDropDownOpen] = useState(false)
     const token = localStorage.getItem('token')
 
     const { loggedIn, handleLogout, autoLogout } = useAuth()
@@ -66,7 +66,17 @@ const Navbar = () => {
         getProduct()
     })
 
-    const filteredProduct = products.filter((p) => p.title.toLowerCase().includes(searchTerm.toLowerCase()))
+    useEffect(() => {
+         if(searchTerm.trim() === ''){
+            setDropDownOpen(false)
+            return
+         }
+
+         const filteredProduct = products.filter((p) => p.title.toLowerCase().includes(searchTerm.toLowerCase()))
+
+         setDropDownOpen(true)
+         setProducts(filteredProduct)
+    }, [])
 
     return (
         <div className='fixed w-full z-50'>
@@ -102,11 +112,15 @@ const Navbar = () => {
                     </div>
 
                     {
-                        filteredProduct.map((p) => (
-                           <div className='absolute bottom-0 w-full rounded bg-gray-400 py-2 px-4'>
-                              <SearchCard product={p} key={p._id} />
-                           </div>
-                        ))
+                        dropDownOpen ? (
+                                products.map((p) => (
+                                   <div className='absolute bg-white w-full max-h-60 overflow-y-auto rounded-md shadow-lg mt-1 z-50 text-black'>
+                                      <SearchCard product={p} key={p._id} onClick={() => navigate(`/product/${p._id}`)}/>
+                                   </div>
+                                ))
+                        ) : (
+                            <div className="px-6 py-4 text-gray-500 text-center">Not found</div>
+                        )
                     }
 
                     <div className="relative cursor-pointer" onClick={() => navigate(`/cart`)}>
