@@ -11,7 +11,8 @@ const Navbar = () => {
     const [open, setOpen] = useState(false)
     const navigate = useNavigate()
 
-    const [products, setProducts] = useState([])
+    const [allProducts, setAllProducts] = useState([])
+    const [filteredProducts, setFilteredProducts] = useState([])
 
     const [searchTerm, setSearchTerm] = useState('')
     const [dropDownOpen, setDropDownOpen] = useState(false)
@@ -58,7 +59,7 @@ const Navbar = () => {
         const getProduct = async () => {
             try {
                 const res = await axios.get('/products/getProducts')
-                setProducts(res.data)
+                setAllProducts(res.data)
             } catch (err) {
                 console.log(err);
             }
@@ -69,15 +70,15 @@ const Navbar = () => {
     useEffect(() => {
         if (searchTerm.trim() === '') {
             setDropDownOpen(false)
-            setProducts([])
+            setFilteredProducts([])
             return
         }
-        const filtered = products.filter((p) =>
+        const filtered = allProducts.filter((p) =>
             p.title.toLowerCase().includes(searchTerm.toLowerCase())
         )
-        setProducts(filtered)
+        setFilteredProducts(filtered)
         setDropDownOpen(true)
-    }, [searchTerm, products])
+    }, [searchTerm, allProducts])
 
     return (
         <div className='fixed w-full z-50'>
@@ -113,28 +114,28 @@ const Navbar = () => {
                     </div>
 
                     {dropDownOpen && (
-                            <div className="absolute top-12 left-0 w-full bg-white rounded-md shadow-lg max-h-60 overflow-y-auto z-50">
-                                {products.length > 0 ? (
-                                    products.map((p) => (
-                                        <div
-                                            key={p._id}
-                                            onClick={() => {
-                                                navigate(`/product/${p._id}`)
-                                                setSearchTerm('')
-                                                setDropDownOpen(false)
-                                            }}
-                                            className="hover:bg-gray-100 transition px-3 py-2 cursor-pointer"
-                                        >
-                                            <SearchCard product={p} />
-                                        </div>
-                                    ))
-                                ) : (
-                                    <div className="px-6 py-4 text-gray-500 text-center">
-                                        No products found
+                        <div className="absolute top-12 left-0 w-full bg-white rounded-md shadow-lg max-h-60 overflow-y-auto z-50">
+                            {filteredProducts.length > 0 ? (
+                                filteredProducts.map((p) => (
+                                    <div
+                                        key={p._id}
+                                        onClick={() => {
+                                            navigate(`/product/${p._id}`)
+                                            setSearchTerm('')
+                                            setDropDownOpen(false)
+                                        }}
+                                        className="hover:bg-gray-100 transition px-3 py-2 cursor-pointer"
+                                    >
+                                        <SearchCard product={p} />
                                     </div>
-                                )}
-                            </div>
-                        )}
+                                ))
+                            ) : (
+                                <div className="px-6 py-4 text-gray-500 text-center">
+                                    No products found
+                                </div>
+                            )}
+                        </div>
+                    )}
 
                     <div className="relative cursor-pointer" onClick={() => navigate(`/cart`)}>
                         <FaShoppingCart className='text-blue-400 text-[20px]' />
