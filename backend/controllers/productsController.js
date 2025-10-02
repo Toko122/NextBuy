@@ -14,7 +14,7 @@ exports.postProduct = async(req, res) => {
         price,
         image: req.file.path
       })
-
+      console.log('File:', req.file);
        res.status(200).json(product)
 
      }catch(err){

@@ -5,10 +5,15 @@ import { FaShoppingCart } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useAuth } from '../AuthContext';
 import axios from '../axios';
+import SearchCard from '../components/SearchCard';
 
 const Navbar = () => {
     const [open, setOpen] = useState(false)
     const navigate = useNavigate()
+
+    const [products, setProducts] = useState([])
+
+    const [searchTerm, setSearchTerm] = useState('')
 
     const token = localStorage.getItem('token')
 
@@ -49,9 +54,20 @@ const Navbar = () => {
 
     }, [])
 
+    const getProduct = async () => {
+        try {
+            const res = await axios.get('/products/getProducts')
+            setProducts(res.data)
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    const filteredProduct = products.filter((p) => p.title.toLowerCase().includes(searchTerm.toLowerCase()))
+
     return (
         <div className='fixed w-full z-50'>
-            <nav className="flex items-center justify-between px-6 md:px-12 lg:px-20 xl:px-32 py-4 border-b border-gray-300 bg-white relative transition-all">
+            <nav className="flex relative items-center justify-between px-6 md:px-12 lg:px-20 xl:px-32 py-4 border-b border-gray-300 bg-white relative transition-all">
 
                 <Link
                     to="/"
@@ -78,8 +94,16 @@ const Navbar = () => {
 
 
                     <div className="hidden lg:flex items-center text-sm gap-2 border border-gray-300 px-3 rounded-full">
-                        <input className="py-1.5 w-full bg-transparent outline-none placeholder-gray-500" type="text" placeholder="Search products" />
+                        <input value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="py-1.5 w-full bg-transparent outline-none placeholder-gray-500" type="text" placeholder="Search products" />
                         <FaSearch />
+                    </div>
+
+                    <div className='absolute top-0 rounded bg-black py-2 px-4'>
+                    {
+                        filteredProduct.map((p) => (
+                            <SearchCard product={p} key={p._id} />
+                        ))
+                    }
                     </div>
 
                     <div className="relative cursor-pointer" onClick={() => navigate(`/cart`)}>
