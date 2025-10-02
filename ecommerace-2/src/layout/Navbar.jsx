@@ -64,7 +64,7 @@ const Navbar = () => {
             }
         }
         getProduct()
-    })
+    }, [])
 
     useEffect(() => {
          if(searchTerm.trim() === ''){
@@ -76,7 +76,7 @@ const Navbar = () => {
 
          setDropDownOpen(true)
          setProducts(filteredProduct)
-    }, [])
+    }, [searchTerm, products])
 
     return (
         <div className='fixed w-full z-50'>
